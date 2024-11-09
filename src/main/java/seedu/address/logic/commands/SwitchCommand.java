@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.model.profile.Profile.extractProfileNameFromPathOrThrow;
 
 import java.nio.file.Path;
@@ -65,6 +66,8 @@ public class SwitchCommand extends Command {
         model.removeFromProfiles(profile);
         model.setAddressBookFilePath(filePath);
 
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setSortedListToDefault();
         return new CommandResult(String.format(MESSAGE_SUCCESS, profile)).markProfileSwitched();
     }
 
